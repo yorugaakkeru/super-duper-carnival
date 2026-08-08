@@ -5,12 +5,12 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>✨ Map of Roasteries ✨</title>
+  <title>✨ coffea seed ✨</title>
   <link rel="stylesheet" href="./design.css">
   <script src="./function.js"></script> 
 
   <!-- Maplibre GL -->
-  <script src='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.mjs'></script>
+   <script src='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.mjs'></script>
   <link href='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css' rel='stylesheet' />
 <!-- Maplibre GL Leaflet  -->
     <!-- <script src="https://unpkg.com/@maplibre/maplibre-gl-leaflet/leaflet-maplibre-gl.js"></script>/> -->
@@ -19,6 +19,7 @@
   </head>
 
 <body>
+
     <header>
         
  <nav aria-label="Breadcrumb" class="breadcrumb">
@@ -26,10 +27,11 @@
         <a href=".">. </a>
         <a href="./index.html">COFFEA SEED LOGO</a>
 
-        <span aria-current="page"> Map Of Roasteries </span>
+        <span aria-current="page"> Map of Origins </span>
       </ul>
-    </nav>    </header>
-    <ul>
+    </nav>   
+ </header>
+    <ul >
         <li> <a href="./p-origins.html">Map of Origins</a></li>
         <li> <a href="./p-roasteries.html">Map of Roasteries</a></li>
         <!-- <li> <a href="./index.html">Home</a></li>  -->
@@ -38,13 +40,16 @@
 
     </ul>
 
-  <div class="text-block"> 
-    this is the page for speacialty roasteries, there's many of those so the map is very crowded and might take a second to launch. there  Welcome -- fellow coffee enthusiast. This is a bla bla website, for bla bla coffea seed.
----For now it's only european roasteries. As the website gets developed more will be added. To make it easier for me you can add your favorite ones that are ourside europe.  
-</div>
+        <div class="text-block">  here is the speacilty and non specialty coffee growers.  Welcome -- fellow coffee enthusiast. This is a bla bla website, for bla bla coffea seed.
+        if there's any missing regions please see the suggestions page foor it to be added.  
+        </div>
+
+
+
 
   <!-- map div -->
-  <div id="map" style="width: 100%; height: 600px; border-radius: 20px;border-style: solid; border-color: #f69b14;"></div> 
+   <!-- www.geoboundaries.org -->
+  <div id="map" style="width: 100%; height: 600px; border-radius: 20px; border-style: solid; border-color: #f69b14;"></div> 
   <script type="module">
     import * as maplibregl from 'https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.mjs';
     const map = new maplibregl.Map({
@@ -52,7 +57,8 @@
         style: 'https://demotiles.maplibre.org/globe.json', // style URL
         center: [0, 0], // starting position [lng, lat]
         zoom: 2, // starting zoom
-        rollEnabled: true
+        rollEnabled: true,
+        //  customAttribution: "MapLibre ..."
     });
     map.setBearing(180);
     map.addControl(new maplibregl.NavigationControl({
@@ -66,11 +72,12 @@ let hoveredStateId = null;
     map.on('load', () => {
         map.addSource('eth-regions', {
             'type': 'geojson',
-            'attribution':'<a href = "https://www.geoboundaries.org">www.geoBoundaries.org</a>,<a href = "https://bll">blblblb</a>',
+            'attribution':'<a href = "https://www.geoboundaries.org">www.geoBoundaries.org</a>',
             'data':
-                'http://127.0.0.1:9999/src-maps/roasteries/geoBoundaries-POL-ADM1_simplified.geojson',
+                'http://127.0.0.1:9999/src-maps/origins/south-america/geoBoundaries-NIC-ADM1_simplified.geojson',
             'promoteId': 'shapeID'
-            });
+            }
+        );
 
         // The feature-state dependent fill-opacity expression will render the hover effect
         // when a feature's hover state is set to true.
@@ -101,6 +108,50 @@ let hoveredStateId = null;
             }
         });
 
+
+        map.addLayer({
+            'id': 'route-1',
+            'type': 'line',
+            'source': {
+                'type': 'geojson',
+                'data': {
+                    'type': 'Feature',
+                    'properties': {},
+                    'geometry': {'type': 'LineString',
+                'coordinates': [
+                    [-180, 30],
+                    [180, 30]
+                ]}
+                }
+            },
+            'layout': {'line-cap': 'round'},
+            'paint': {
+                'line-color': '#007cad',
+                'line-width': 6
+            }
+        });    
+        map.addLayer({
+            'id': 'route-2',
+            'type': 'line',
+            'source': {
+                'type': 'geojson',
+                'data': {
+                    'type': 'Feature',
+                    'properties': {},
+                    'geometry': {'type': 'LineString',
+                'coordinates': [
+                    [-180, -25],
+                    [180, -25]
+                ]}
+                }
+            },
+            'layout': {'line-cap': 'round'},
+            'paint': {
+                'line-color': '#007cad',
+                'line-width': 6
+            }
+        });    
+        
         // When the user moves their mouse over the state-fill layer, we'll update the
         // feature state for the feature under the mouse.
         map.on('mousemove', 'region-fills', (e) => {
@@ -138,7 +189,7 @@ let hoveredStateId = null;
   <footer>
     <ul>
         <li> <a href="https://github.com/yorugaakkeru/super-duper-carnival"> GitHub</a></li> 
-        <li>  <a href="yorugaakkeru@gmail.com"> E-Mail</a> </li>
+        <li>  <a href="mailto:yorugaakkeru@gmail.com"> E-Mail</a> </li>
     </ul>
     
   </footer>

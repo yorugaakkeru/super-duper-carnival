@@ -20,118 +20,29 @@
 
 <body>
 
-  <header>
-    <ul>
-        <li> <a href="./index.html">Map of Origins</a></li>
+    <nav aria-label="Breadcrumb" class="breadcrumb">
+      <ul >
+        <a href=".">. </a>
+
+        <span aria-current="page"> COFFEA SEED LOGO </span>
+      </ul>
+    </nav>
+    <ul >
+        <li > <a href="./p-origins.html">Map of Origins</a></li>
         <li> <a href="./p-roasteries.html">Map of Roasteries</a></li>
         <!-- <li> <a href="./index.html">Home</a></li>  -->
         <li> <a href="./p-suggestions.html">Suggestions</a></li>
         <li> <a href="./p-about.html">About</a></li>
 
     </ul>
-  </header>
-
-  <div class="text-block">  here is the speacilty and non specialty coffee growers.  Welcome -- fellow coffee enthusiast. This is a bla bla website, for bla bla coffea seed.
-if there's any missing regions please see the suggestions page foor it to be added.  
+<div class="text-block"; style="width: auto;height: 600px;" >
+ WEOLCOME TO COFFEA SEED. Here is the world of coffee. Please enjoy and have fun
 </div>
 
-  <!-- map div -->
-   <!-- www.geoboundaries.org -->
-  <div id="map" style="width: 100%; height: 600px; border-radius: 20px;"></div> 
-  <script>
-    const map = new maplibregl.Map({
-        container: 'map', // container id
-        style: 'https://demotiles.maplibre.org/globe.json', // style URL
-        center: [0, 0], // starting position [lng, lat]
-        zoom: 1, // starting zoom
-        rollEnabled: true,
-        //  customAttribution: "MapLibre ..."
-    });
-    map.setBearing(180);
-    map.addControl(new maplibregl.NavigationControl({
-        visualizePitch: true,
-        visualizeRoll: true,
-        showZoom: true,
-        showCompass: true
-    }));
-    
-let hoveredStateId = null;
-    map.on('load', () => {
-        map.addSource('eth-regions', {
-            'type': 'geojson',
-            'attribution':'<a href = "https://www.geoboundaries.org">www.geoBoundaries.org</a>',
-            'data':
-                'http://127.0.0.1:9999/src-maps/origins/geoBoundaries-RWA-ADM1_simplified.geojson',
-            'promoteId': 'shapeID'
-            });
-
-        // The feature-state dependent fill-opacity expression will render the hover effect
-        // when a feature's hover state is set to true.
-        map.addLayer({
-            'id': 'region-fills',
-            'type': 'fill',
-            'source': 'eth-regions',
-            'layout': {},
-            'paint': {
-                'fill-color': 'rgba(255, 255, 255,0.6)',
-                'fill-opacity': [
-                    'case',
-                    ['boolean', ['feature-state', 'hover'], false],
-                    1,
-                    0.5
-                ]
-            }
-        });
-
-        map.addLayer({
-            'id': 'eth-region-borders',
-            'type': 'line',
-            'source': 'eth-regions',
-            'layout': {},
-            'paint': {
-                'line-color': 'rgba(255, 255, 255,0.2)',
-                'line-width': 2
-            }
-        });
-
-        // When the user moves their mouse over the state-fill layer, we'll update the
-        // feature state for the feature under the mouse.
-        map.on('mousemove', 'region-fills', (e) => {
-            if (e.features.length > 0) {
-                if (hoveredStateId) {
-                    map.setFeatureState(
-                        {source: 'eth-regions', id: hoveredStateId},
-                        {hover: false}
-                    );
-                }
-                hoveredStateId = e.features[0].id;
-                map.setFeatureState(
-                    {source: 'eth-regions', id: hoveredStateId},
-                    {hover: true}
-                );
-            }
-        });
-
-        // When the mouse leaves the state-fill layer, update the feature state of the
-        // previously hovered feature.
-        map.on('mouseleave', 'region-fills', () => {
-            if (hoveredStateId) {
-                map.setFeatureState(
-                    {source: 'eth-regions', id: hoveredStateId},
-                    {hover: false}
-                );
-            }
-            hoveredStateId = null;
-        });
-    });
-
-  </script>
-
-
-  <footer>
+<footer style="position: fixed;bottom: 0;">    
     <ul>
         <li> <a href="https://github.com/yorugaakkeru/super-duper-carnival"> GitHub</a></li> 
-        <li>  <a href="yorugaakkeru@gmail.com"> E-Mail</a> </li>
+        <li>  <a href="mailto:yorugaakkeru@gmail.com"> E-Mail</a> </li>
     </ul>
     
   </footer>

@@ -2,3 +2,7 @@
 - add the map
     -
     -
+https://www.w3schools.com/howto/howto_css_breadcrumbs.asp
+back to top
+https://stackoverflow.com/questions/18998797/create-breadcrumbs-dynamically-on-client-side-using-javascript
+ - add image scroll on pad sideways to about page
